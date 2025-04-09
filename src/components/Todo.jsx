@@ -71,7 +71,7 @@ const ToDoForm = () => {
       <ul className="flex flex-col gap-2 mt-4">
         {todoList.map((todo) => (
           <li
-            key={todo.id}
+            id={`todo-${todo.id}`}
             className={`flex justify-between items-center gap-4 px-4 py-3 rounded-md shadow-sm transition ${
               todo.isCompleted
                 ? "bg-slate-200 text-slate-400 line-through"
@@ -100,7 +100,16 @@ const ToDoForm = () => {
                 className="border border-red-400 bg-red-100 text-red-700 hover:bg-red-200 font-medium cursor-pointer px-2 py-1 rounded shadow-sm transition"
                 title="Delete"
                 onClick={() => {
-                  deleteTodo(todo.id);
+                  if (confirm("Are you sure to delete?")) {
+                    deleteTodo(todo.id);
+                    setTimeout(() => {
+                      alert("ToDo deleted successfully.");
+                    }, 500);
+                  } else {
+                    setTimeout(() => {
+                      alert("Operation canceled.");
+                    }, 500);
+                  }
                 }}
               >
                 <FaTrashCan />
